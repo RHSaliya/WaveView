@@ -24,17 +24,17 @@ class WaveView : View {
     /**
      * Values used for drawing the wave. Initialized to default values.
      */
-    private var numberOfWaves = 0
-    private var phase = 0f
-    private var amplitude = 0f
-    private var frequency = 0f
-    private var phaseShift = 0f
-    private var density = 0f
-    private var primaryWaveLineWidth = 0f
-    private var secondaryWaveLineWidth = 0f
-    private var backgroundColor = 0
-    private var waveColor = 0
-    private var xAxisPositionMultiplier = 0f
+    var numberOfWaves = 0
+    var phase = 0f
+    var amplitude = 0f
+    var frequency = 0f
+    var phaseShift = 0f
+    var density = 0f
+    var primaryWaveLineWidth = 0f
+    var secondaryWaveLineWidth = 0f
+    var backgroundColor = 0
+    var waveColor = 0
+    var xAxisPositionMultiplier = 0f
 
     /**
      * Paint object for drawing the sine wave.
