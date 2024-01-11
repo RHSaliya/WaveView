@@ -47,7 +47,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.RHSaliya'
                 artifactId = 'waveview'
-                version = '1.0.3'
+                version = '1.0.4'
             }
         }
     }

@@ -32,8 +32,14 @@ class WaveView : View {
     var density = 0f
     var primaryWaveLineWidth = 0f
     var secondaryWaveLineWidth = 0f
-    var backgroundColor = 0
+    private var backgroundColor = 0
     var waveColor = 0
+        set(waveColor) {
+            field = waveColor
+            paint.color = waveColor
+            invalidate()
+        }
+
     var xAxisPositionMultiplier = 0f
 
     /**
@@ -198,35 +204,6 @@ class WaveView : View {
     }
 
     /**
-     * Returns background color of the view.
-     */
-    fun getBackgroundColor(): Int {
-        return backgroundColor
-    }
-
-    /**
-     * Sets background color of the view.
-     */
-    override fun setBackgroundColor(backgroundColor: Int) {
-        this.backgroundColor = backgroundColor
-    }
-
-    /**
-     * Returns wave color of the view.
-     */
-    fun getWaveColor(): Int {
-        return waveColor
-    }
-
-    /**
-     * Sets wave color of the view.
-     */
-    fun setWaveColor(waveColor: Int) {
-        this.waveColor = waveColor
-        paint.color = waveColor
-    }
-
-    /**
      * Returns number of waves of the view.
      */
     var waveXAxisPositionMultiplier: Float
@@ -255,6 +232,14 @@ class WaveView : View {
      */
     fun pause() {
         isPlaying.set(false)
+    }
+
+    fun getBackgroundColor(): Int {
+        return backgroundColor
+    }
+
+    override fun setBackgroundColor(color: Int) {
+        backgroundColor = color
     }
 
     /**
