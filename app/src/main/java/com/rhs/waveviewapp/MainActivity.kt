@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rhs.waveview.WaveView
 import com.rhs.waveview.rememberPainterAsImageBitmap
@@ -60,5 +61,13 @@ private fun WaveDemo() {
             xAxisPositionMultiplier = 0.5f,
             mask = mask,
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WaveDemoPreview() {
+    MaterialTheme {
+        WaveDemo()
     }
 }
