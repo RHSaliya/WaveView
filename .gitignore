@@ -1,15 +1,46 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Built application files
+*.apk
+*.aab
+*.aar
+*.ap_
+*.dex
+*.class
+
+# Generated output
+bin/
+gen/
+out/
+release/
+build/
+captures/
+
+# Gradle
+.gradle/
+
+# Local configuration (SDK path, signing, etc.)
 local.properties
+
+# Proguard
+proguard/
+
+# Logs
+*.log
+
+# Keystores
+*.jks
+*.keystore
+
+# Native build
+.externalNativeBuild
+.cxx/
+
+# IntelliJ / Android Studio
+*.iml
+.idea/
+
+# Kotlin compiler caches
+.kotlin/
+
+# OS files
+.DS_Store
+Thumbs.db
