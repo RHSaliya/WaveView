@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -16,7 +17,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rhs.waveview.WaveView
-import com.rhs.waveview.rememberPainterAsImageBitmap
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,18 +37,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun WaveDemo() {
     val primary = colorResource(id = R.color.colorPrimary)
-    val mask = rememberPainterAsImageBitmap(
-        painter = painterResource(id = R.drawable.ic_android),
-        width = 240.dp,
-        height = 240.dp,
-    )
 
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         WaveView(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.size(200.dp),
             numberOfWaves = 5,
             frequency = 2.0f,
             amplitude = 10.25f,
@@ -59,7 +54,7 @@ private fun WaveDemo() {
             backgroundColor = Color.White,
             waveColor = primary,
             xAxisPositionMultiplier = 0.5f,
-            mask = mask,
+            mask = painterResource(id = R.drawable.ic_android),
         )
     }
 }

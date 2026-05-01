@@ -9,15 +9,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.Painter
 import kotlin.math.pow
 import kotlin.math.sin
 
@@ -49,8 +51,9 @@ object WaveViewDefaults {
  * @param waveColor Color of the wave fill.
  * @param xAxisPositionMultiplier Vertical position of the wave's x-axis as a fraction of height (0..1).
  * @param isPlaying Whether the wave should animate.
- * @param mask Optional [ImageBitmap] used to mask the wave output. Only pixels where the mask
- *             is opaque will remain visible.
+ * @param mask Optional [Painter] (e.g. a vector or raster drawable) whose alpha is used to clip
+ *             the wave output. The painter is drawn at the full size of this WaveView, so the
+ *             waves appear inside the painter's shape regardless of the WaveView's size.
  */
 @Composable
 fun WaveView(
@@ -66,10 +69,11 @@ fun WaveView(
     waveColor: Color = WaveViewDefaults.WaveColor,
     xAxisPositionMultiplier: Float = WaveViewDefaults.XAxisPositionMultiplier,
     isPlaying: Boolean = true,
-    mask: ImageBitmap? = null,
+    mask: Painter? = null,
 ) {
     var phase by remember { mutableFloatStateOf(0f) }
     val path = remember { Path() }
+    val maskPaint = remember { Paint().apply { blendMode = BlendMode.DstIn } }
     val boundedXAxis = xAxisPositionMultiplier.coerceIn(0f, 1f)
 
     LaunchedEffect(isPlaying, phaseShift) {
@@ -104,13 +108,14 @@ fun WaveView(
         )
 
         if (mask != null) {
-            val left = ((size.width - mask.width) / 2f).coerceAtLeast(0f)
-            val top = ((size.height - mask.height) / 2f).coerceAtLeast(0f)
-            drawImage(
-                image = mask,
-                topLeft = Offset(left, top),
-                blendMode = BlendMode.DstIn,
-            )
+            drawIntoCanvas { canvas ->
+                canvas.saveLayer(
+                    bounds = Rect(0f, 0f, size.width, size.height),
+                    paint = maskPaint,
+                )
+                with(mask) { draw(size = size) }
+                canvas.restore()
+            }
         }
     }
 }
